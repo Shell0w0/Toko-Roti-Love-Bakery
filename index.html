@@ -213,107 +213,27 @@
         Temukan pilihan roti dan kue terbaik yang menjadi favorit pelanggan Love Bakery. Setiap produk dibuat dengan resep istimewa, bahan berkualitas tinggi, dan cita rasa yang selalu konsisten.
       </p>
       <div class="row">
-        <template x-for="(item, index) in items" x-key="index">
-          <div class="product-card">
-            <div class="product-icons">
-              <a href="#" @click.prevent="$store.cart.add(item)">
-                <svg
-                  width="24"
-                  height="24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#shopping-cart" />
-                </svg>
-              </a>
-
-              <a href="#" class="item-detail-button">
-                <svg
-                  width="24"
-                  height="24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#eye" />
-                </svg>
-              </a>
-            </div>
-            <div class="product-image">
-              <img :src="`img/products/${item.img}`" :alt="item.name" />
-            </div>
-            <div class="product-content">
-              <h3 x-text="item.name"></h3>
-              <div class="product-stars">
-                <svg
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#star" />
-                </svg>
-                <svg
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#star" />
-                </svg>
-                <svg
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#star" />
-                </svg>
-                <svg
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#star" />
-                </svg>
-                <svg
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="./img/feather-sprite.svg#star" />
-                </svg>
-              </div>
-              <div class="product-price">
-                <span x-text="rupiah(item.price)"></span>
-              </div>
-            </div>
+      <div class="product-card">
+        <div class="product-icons">
+          <a href="#"><i data-feather="shopping-cart"></i></a>
+          <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+        </div>
+        <div class="product-image">
+          <img src="Image/produk1.jpg" alt="Product 1">
+        </div>
+        <div class="product-content">
+          <h3>Wedding Cake 1</h3>
+          <div class="product-stars">
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
           </div>
-        </template>
+          <div class="product-price">IDR 450K <span></span></div>
+        </div>
       </div>
-    </section>
+</section>
     <!-- PRODUCT END -->
 
     <!-- CONTACT SECTION START -->
@@ -377,14 +297,11 @@
       <div class="modal-container">
         <a href="#" class="close-icon"><i data-feather="x"></i></a>
         <div class="modal-content">
-          <img src="img/products/1.jpg" alt="gambar product" />
+          <img src="Image/produk1.jpg" alt="gambar product" />
           <div class="product-content">
-            <h3>Product 1</h3>
+            <h3>Wedding Cake 1</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni
-              ipsum asperiores incidunt voluptate. Aut numquam beatae quisquam
-              nisi obcaecati reprehenderit aperiam sit animi perferendis
-              tenetur!
+              Kue ini dilengkapi dengan hiasan bunga segar berwarna lembut serta topping buah-buahan pilihan seperti stroberi, blueberry, dan raspberry yang menambah kesegaran sekaligus mempercantik tampilan. Kombinasi bunga dan buah menghasilkan kesan natural, klasik, namun tetap modern.
             </p>
             <div class="product-stars">
               <i data-feather="star" class="star-full"></i>
@@ -393,7 +310,7 @@
               <i data-feather="star" class="star-full"></i>
               <i data-feather="star" class="star-full"></i>
             </div>
-            <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+            <div class="product-price">IDR 450K <span></span></div>
             <a href="#"
               ><i data-feather="shopping-cart"></i><span>add to cart</span></a
             >
