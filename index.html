@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Bakery</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FEATHER ICONS -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- MY CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Alpine Js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>"></script>
+
+    <!-- App -->
+    <script src="src/app.js"async></script>
+
+    <!-- Mindtrans -->
+    <script
+      type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-1JTxtjIgoukMWdMU"
+    ></script>
+  </head>
+  <body>
+    <!-- NAVBAR START -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Love<span>Bakery</span>!</a>
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#products">Produk</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i> </a>
+        <a href="#" id="shopping-cart-button"> 
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i> </a>
+      </div>
+
+      <!-- SEARCH FORM START -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <label for="search-box"><i data-feather="search"></i> </label>
+      </div>
+      <!-- SEARCH FORM END -->
+
+      <!-- shopping-cart start -->
+      <div class="shopping-cart">
+        <template x-for=" (item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+          <img :src="`image/${item.Image}`" :alt="item.name">
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+        </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart is Empty</h4>
+        <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id=""checkoutForm">
+          <h5>Customer Detail</h5>
+
+          <label for="name">
+            <span>Name</span>
+            <input type="text" name="name" id="name">
+          </label>
+
+          <label for="email">
+            <span>Email</span>
+            <input type="email" name="email" id="email">
+          </label>
+          
+          <label for="phone">
+            <span>Phone</span>
+            <input type="phone" name="phone" id="phone" autocomplete="off">
+          </label>
+          
+          <button class="checkout-button" type="submit" id="checkout-button" 
+          value="checkout">Checkout</button>
+
+          </form>
+        </div>
+      </div>
+      <!-- shopping-cart end -->
+    </nav>
+    <!-- NAVBAR END -->
+
+    <!-- HERO SECTION START -->
+    <section class="hero" id="home">
+      <div class="mask-container">
+        <main class="content">
+          <h1>Fall in Love with Cakes & Bread in <span>Blissful Delight!</span></h1>
+          <p>
+            Welcome to our cozy cakes corner, where every bites is a delightful for you.</p>
+            <a href="#" class="cta">Beli Sekarang</a>
+          </p>
+        </main>
+      </div>
+    </section>
+    <!-- HERO SECTION END-->
+
+    <!-- ABOUT SECTION START -->
+    <section class="about" id="about">
+      <h2><span>Tentang</span> Kami</h2>
+
+      <div class="row">
+        <div class="about-image">
+          <img src="Image/tentang-kami.jpg" alt="Tentang Kami" />
+        </div>
+        <div class="content">
+          <h3>Kenapa memilih Love Bakery?</h3>
+          <p>
+            Love Bakery tidak hanya menjual roti dan kue, kami menyajikan pengalaman. Dengan resep yang terus kami sempurnakan, proses pembuatan yang higienis, serta tim baker berpengalaman, kami menghadirkan beragam pilihan seperti roti lembut, pastry renyah, hingga kue manis untuk setiap momen spesial Anda.
+          </p>
+          <p>
+            Kami juga selalu menjaga kualitas dan rasa agar sesuai dengan selera pelanggan. Di Love Bakery, setiap produk bukan hanya makanan, tapi bentuk cinta yang kami bagikan untuk membuat hari Anda lebih manis.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- ABOUT SECTION END -->
+
+    <!-- MENU SECTION START -->
+    <section class="menu" id="menu">
+      <h2><span>Menu</span> Kami</h2>
+      <p>
+        Nikmati berbagai pilihan roti dan kue terbaik dari Love Bakery, dibuat dengan bahan berkualitas dan rasa yang selalu menggugah selera.
+      </p>
+      <div class="row">
+        <div class="menu-card">
+          <img src="Image/Menu/image-menu-1.jpg" atl="Croissant" class="menu-card-image" />
+          <h3 
+          class="menu-card-title">- Croissant -</h3>
+          <p class="menu-card-price">IDR 18K</p>
+        </div>
+        <div class="menu-card">
+          <img src="Image/Menu/image-menu-2 .jpg" atl="Walnut Cheesecake" class="menu-card-image" />
+          <h3 class="menu-card-title">- Walnut Cheesecake -</h3>
+          <p class="menu-card-price">IDR 24K</p>
+        </div>
+        <div class="menu-card">
+          <img src="Image/Menu/image-menu-3.jpg" atl="Chocolate Cake" class="menu-card-img" />
+          <h3 class="menu-card-title">- Chocolate Cake -</h3>
+          <p class="menu-card-price">IDR 30K</p>
+        </div>
+              <div class="menu-card">
+          <img src="Image/Menu/image-menu-4.jpg" atl="Cherry Cake" class="menu-card-img" />
+          <h3 class="menu-card-title">- Cherry Cake -</h3>
+          <p class="menu-card-price">IDR 32K</p>
+        </div>        <div class="menu-card">
+          <img src="Image/Menu/image-menu-5.jpg" atl="Donut" class="menu-card-img" />
+          <h3 class="menu-card-title">- Donut -</h3>
+          <p class="menu-card-price">IDR 10K</p>
+        </div>
+        <div class="menu-card">
+          <img src="Image/Menu/image-menu-6.jpg" atl="Choco Cookies" class="menu-card-img" />
+          <h3 class="menu-card-title">- Choco Cookies -</h3>
+          <p class="menu-card-price">IDR 13K</p>
+        </div>
+      </div>
+    </section>
+    <!-- MENU SECTION END -->
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<!-- PRODUCT SECTION START -->
+<section class="products" id="products" x-data="products">
+  <h2><span>Produk Unggulan</span> Kami</h2>
+  <p>Temukan pilihan roti dan kue terbaik yang menjadi favorit pelanggan Love Bakery. Setiap produk dibuat dengan resep istimewa, bahan berkualitas tinggi, dan cita rasa yang selalu konsisten. </p>
+  <div class="row">
+    <template x-for="(item, index) in items" x-key="index">
+      <div class="product-card">
+        <div class="product-icons">
+          <a href="#" @click.prevent="$store.cart.add(item)"><i data-feather="shopping-cart"></i>
+            <svg width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+              <use href="path/to/feather-sprite.svg#shopping-cart" /> 
+            </svg>
+          </a>
+          <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+        </div>
+        <div class="product-Image">
+          <img :src="`image/${item.Image}`" :alt="item.name">
+        </div>
+        <div class="product-content">
+          <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+              <use href="path/to/feather-sprite.svg#star" /> 
+            </svg>
+          <div class="product-price">
+            <span x-text="rupiah(item.price)"></span>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</section>
+
+<!-- WAJIB DITAMBAHKAN -->
+<script>
+  document.addEventListener("alpine:init", () => {
+    Alpine.effect(() => {
+      feather.replace();
+    });
+  });
+</script>
+
+    <!-- CONTACT SECTION START -->
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> Kami</h2>
+      <p>
+        Hubungi kami untuk pemesanan atau pertanyaan seputar produk Love Bakery. Kami siap membantu Anda dengan cepat dan ramah.
+      </p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3151.5990932508957!2d124.38052025135546!3d-1.9424388663783019!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d82af71055ce6b5%3A0xe0a07ad3a665cea1!2sPeginapan%20ILvamal!5e1!3m2!1sid!2sid!4v1702670109632!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="nama" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="no hp" />
+          </div>
+          <button type="submit" class="btn">kirim pesan</button>
+        </form>
+      </div>
+    </section>
+    <!-- CONTACT SECTION END -->
+
+    <!-- FOOTER START -->
+    <footer>
+      <div class="socials">
+        <a href="#"><i data-feather="instagram"></i></a>
+        <a href="#"><i data-feather="twitter"></i></a>
+        <a href="#"><i data-feather="facebook"></i></a>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="credit">
+        <p>Created by <a href="">LoveBakery</a>. | &copy; 2025.</p>
+      </div>
+    </footer>
+    <!-- FOOTER END -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="`image/${item.Image}`" alt="gambar product" />
+          <div class="product-content">
+            <h3>Wedding Cake 1</h3>
+            <p>
+              Kue ini dilengkapi dengan hiasan bunga segar berwarna lembut serta topping buah-buahan pilihan seperti stroberi, blueberry, dan raspberry yang menambah kesegaran sekaligus mempercantik tampilan. Kombinasi bunga dan buah menghasilkan kesan natural, klasik, namun tetap modern.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 450K <span>IDR 675K</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- FEATHER ICONS -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- My Javascript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
