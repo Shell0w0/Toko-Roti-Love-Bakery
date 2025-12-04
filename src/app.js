@@ -10,6 +10,45 @@ document.addEventListener('alpine:init', () => {
         ],
     }));
 
+    // Alpine Data untuk Modal Product
+document.addEventListener('alpine:init', () => {
+  Alpine.data('modalProduct', () => ({
+    isOpen: false,
+    selectedItem: {
+      id: 0,
+      name: '',
+      Image: '',
+      price: 0,
+      description: ''
+    },
+    
+    showModal(item) {
+      this.selectedItem = item;
+      this.isOpen = true;
+      // Refresh feather icons setelah modal terbuka
+      setTimeout(() => feather.replace(), 100);
+    },
+    
+    closeModal() {
+      this.isOpen = false;
+    },
+    
+    addToCart() {
+      Alpine.store('cart').add(this.selectedItem);
+      this.closeModal();
+    }
+  }));
+  
+  // Fungsi global untuk dipanggil dari products section
+  window.showModal = function(item) {
+    // Trigger modal melalui Alpine
+    const modal = document.querySelector('#item-detail-modal');
+    if (modal) {
+      Alpine.evaluate(modal, '$data.showModal(item)', { item });
+    }
+  };
+});
+
     // CART STORE
     Alpine.store('cart', {
         items: [],
@@ -64,6 +103,67 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
+
+// Form Validation
+const checkoutButton = document.querySelector('.checkout-button');
+checkoutButton.disabled = true;
+
+const form = document.querySelector('#checkoutForm');
+
+form.addEventListener('keyup', function() {
+    let allFilled = true;
+    
+    // Hanya validasi input yang visible dan required
+    const nameInput = form.querySelector('#name');
+    const emailInput = form.querySelector('#email');
+    const phoneInput = form.querySelector('#phone');
+    
+    if (nameInput.value.trim() === '' || 
+        emailInput.value.trim() === '' || 
+        phoneInput.value.trim() === '') {
+        allFilled = false;
+    }
+    
+    // Enable/disable button
+    if (allFilled) {
+        checkoutButton.disabled = false;
+        checkoutButton.classList.remove('disabled');
+    } else {
+        checkoutButton.disabled = true;
+        checkoutButton.classList.add('disabled');
+    }
+});
+
+// Kirim data ketika tombol checkout diklik
+checkoutButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const data = new URLSearchParams(formData);
+    const objData = Object.fromEntries(data);
+    
+    const message = formatMessage(objData);
+    
+    window.open(
+        'https://wa.me/6285215718399?text=' + encodeURIComponent(message)
+    );
+});
+
+// Format pesan whatsapp
+const formatMessage = (obj) => {
+    return `Data Customer
+Nama: ${obj.name}
+Email: ${obj.email}
+No HP: ${obj.phone}
+
+Data Pesanan
+${JSON.parse(obj.items)
+    .map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)})`)
+    .join('\n')}
+
+TOTAL: ${rupiah(obj.total)}
+Terima kasih.`;
+};
 
 // konversi ke Rupiah
 const rupiah = (number) => {

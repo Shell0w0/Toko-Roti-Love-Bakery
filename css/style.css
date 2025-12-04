@@ -12,7 +12,8 @@
   text-decoration: none;
 }
 
-html {
+
+* html {
   scroll-behavior: smooth;
 }
 
@@ -232,7 +233,7 @@ body {
 
 .form-container .checkout-button {
   padding: 6px 14px;
-  background-color: rgb(255, 92, 133);
+  background-color: rgb(225, 65, 89);
   color: white;
   font-weight: bold;
   font-size: 1rem;
@@ -245,7 +246,6 @@ body {
   background-color: #999;
   cursor: not-allowed;
 }
-
 
 
 /* Hero Section */
@@ -745,3 +745,157 @@ footer .credit a {
   }
 }
 
+/* Modal */
+.modal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  position: relative;
+  background-color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 1rem;
+  animation: modalSlide 0.3s ease;
+}
+
+@keyframes modalSlide {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-container .close-icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s;
+}
+
+.modal-container .close-icon:hover {
+  color: var(--primary);
+  transform: rotate(90deg);
+}
+
+.modal-content {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.modal-content img {
+  width: 45%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.modal-content .product-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content .product-content h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.modal-content .product-content p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #666;
+  text-align: justify;
+}
+
+.modal-content .product-stars i {
+  color: #ffd700 !important;
+  fill: #ffd700 !important;
+  stroke: #ffd700 !important;
+}
+
+.modal-content .product-stars i.star-full {
+  color: #ffd700 !important;
+  fill: #ffd700 !important;
+}
+
+/* Paksa feather icon bintang jadi full */
+.modal-content .product-stars svg {
+  fill: #ffd700 !important;
+  color: #ffd700 !important;
+  stroke: #ffd700 !important;
+}
+
+.modal-content .product-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.modal-content a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-top: auto;
+}
+
+.modal-content a:hover {
+  background-color: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.modal-content a i {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .modal-content {
+    flex-direction: column;
+  }
+  
+  .modal-content img {
+    width: 100%;
+    height: 300px;
+  }
+  
+  .modal-content .product-content h3 {
+    font-size: 1.5rem;
+  }
+}

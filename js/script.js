@@ -1,3 +1,31 @@
+// Sound Effect untuk Navbar
+document.querySelectorAll('.navbar-nav a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    
+    // Play sound effect
+    const clickSound = new Audio('audio/click.mp3');
+    clickSound.volume = 0.3; // Volume 30% (0.0 - 1.0)
+    clickSound.play();
+    
+    const targetId = this.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    if (targetSection) {
+      const navbarHeight = document.querySelector('.navbar').offsetHeight;
+      const targetPosition = targetSection.offsetTop - navbarHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+      
+      // Tutup hamburger menu (untuk mobile)
+      document.querySelector('.navbar-nav').classList.remove('active');
+    }
+  });
+});
+
 // Toggle class Active untuk Hamburger menu
 const navbarNav = document.querySelector('.navbar-nav');
 // ketika hamburger menu di klik

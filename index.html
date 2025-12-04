@@ -83,7 +83,9 @@
         <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
 
         <div class="form-container" x-show="$store.cart.items.length">
-          <form action="" id=""checkoutForm">
+          <form action="" id="checkoutForm">
+            <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+            <input type="hidden" name="total" x-model="$store.cart.total">
           <h5>Customer Detail</h5>
 
           <label for="name">
@@ -101,7 +103,7 @@
             <input type="phone" name="phone" id="phone" autocomplete="off">
           </label>
           
-          <button class="checkout-button" type="submit" id="checkout-button" 
+          <button class="checkout-button disable" type="submit" id="checkout-button" 
           value="checkout">Checkout</button>
 
           </form>
@@ -118,7 +120,6 @@
           <h1>Fall in Love with Cakes & Bread in <span>Blissful Delight!</span></h1>
           <p>
             Welcome to our cozy cakes corner, where every bites is a delightful for you.</p>
-            <a href="#" class="cta">Beli Sekarang</a>
           </p>
         </main>
       </div>
@@ -197,30 +198,25 @@
     <template x-for="(item, index) in items" x-key="index">
       <div class="product-card">
         <div class="product-icons">
-          <a href="#" @click.prevent="$store.cart.add(item)"><i data-feather="shopping-cart"></i>
-            <svg width="6" height="6" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-              <use href="path/to/feather-sprite.svg#shopping-cart" /> 
-            </svg>
+          <a href="#" @click.prevent="$store.cart.add(item)">
+            <i data-feather="shopping-cart"></i>
           </a>
-          <a href="#" class="item-detail-button"><i data-feather="eye"></i></a>
+          <a href="#" @click.prevent="$dispatch('show-modal', item)" class="item-detail-button">
+            <i data-feather="eye"></i>
+          </a>
         </div>
         <div class="product-Image">
           <img :src="`image/${item.Image}`" :alt="item.name">
         </div>
         <div class="product-content">
           <h3 x-text="item.name"></h3>
-              <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-              <use href="path/to/feather-sprite.svg#star" /> 
-            </svg>
+          <div class="product-stars">
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+          </div>
           <div class="product-price">
             <span x-text="rupiah(item.price)"></span>
           </div>
@@ -229,6 +225,7 @@
     </template>
   </div>
 </section>
+
 
 <!-- WAJIB DITAMBAHKAN -->
 <script>
@@ -275,12 +272,12 @@
     <!-- CONTACT SECTION END -->
 
     <!-- FOOTER START -->
-    <footer>
-      <div class="socials">
-        <a href="#"><i data-feather="instagram"></i></a>
-        <a href="#"><i data-feather="twitter"></i></a>
-        <a href="#"><i data-feather="facebook"></i></a>
-      </div>
+<footer>
+  <div class="socials">
+    <a href="https://www.instagram.com/shelchan_27" target="_blank"><i data-feather="instagram"></i></a>
+    <a href="https://twitter.com/lovebakery" target="_blank"><i data-feather="twitter"></i></a>
+    <a href="https://www.facebook.com/lovebakery" target="_blank"><i data-feather="facebook"></i></a>
+  </div>
 
       <div class="links">
         <a href="#home">Home</a>
@@ -296,29 +293,45 @@
     <!-- FOOTER END -->
 
     <!-- Modal Box Item Detail Start -->
-    <div class="modal" id="item-detail-modal">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="`image/${item.Image}`" alt="gambar product" />
-          <div class="product-content">
-            <h3>Wedding Cake 1</h3>
-            <p>
-              Kue ini dilengkapi dengan hiasan bunga segar berwarna lembut serta topping buah-buahan pilihan seperti stroberi, blueberry, dan raspberry yang menambah kesegaran sekaligus mempercantik tampilan. Kombinasi bunga dan buah menghasilkan kesan natural, klasik, namun tetap modern.
-            </p>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <div class="product-price">IDR 450K <span>IDR 675K</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>add to cart</span></a>
-          </div>
+<div class="modal" id="item-detail-modal" 
+     x-data="{ 
+       open: false, 
+       item: { id: 0, name: '', Image: '', price: 0 } 
+     }"
+     x-show="open"
+     @show-modal.window="open = true; item = $event.detail; setTimeout(() => feather.replace(), 50)"
+     @click.self="open = false"
+     style="display: none;"
+     x-transition>
+  <div class="modal-container">
+    <a href="#" @click.prevent="open = false" class="close-icon">
+      <i data-feather="x"></i>
+    </a>
+    <div class="modal-content">
+      <img :src="`image/${item.Image}`" :alt="item.name" />
+      <div class="product-content">
+        <h3 x-text="item.name"></h3>
+        <p>
+          Kue ini dilengkapi dengan hiasan bunga segar berwarna lembut serta topping buah-buahan pilihan seperti stroberi, blueberry, dan raspberry yang menambah kesegaran sekaligus mempercantik tampilan. Kombinasi bunga dan buah menghasilkan kesan natural, klasik, namun tetap modern.
+        </p>
+        <div class="product-stars">
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
+          <i data-feather="star" class="star-full"></i>
         </div>
+        <div class="product-price">
+          <span x-text="rupiah(item.price)"></span>
+        </div>
+        <a href="#" @click.prevent="$store.cart.add(item); open = false">
+          <i data-feather="shopping-cart"></i>
+          <span>add to cart</span>
+        </a>
       </div>
     </div>
+  </div>
+</div>
     <!-- Modal Box Item Detail End -->
 
     <!-- FEATHER ICONS -->
