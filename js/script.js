@@ -94,3 +94,5 @@ window.onclick = (e) => {
     itemDetailModal.style.display = 'none';
   }
 };
+
+// function search

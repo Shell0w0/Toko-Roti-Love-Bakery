@@ -66,7 +66,7 @@
       <div class="shopping-cart">
         <template x-for=" (item, index) in $store.cart.items" x-keys="index">
           <div class="cart-item">
-          <img :src="`image/${item.Image}`" :alt="item.name">
+          <img :src="`Image/${item.Image}`" :alt="item.name">
             <div class="item-detail">
               <h3 x-text="item.name"></h3>
               <div class="item-price">
@@ -206,7 +206,7 @@
           </a>
         </div>
         <div class="product-Image">
-          <img :src="`image/${item.Image}`" :alt="item.name">
+          <img :src="`Image/${item.Image}`" :alt="item.name">
         </div>
         <div class="product-content">
           <h3 x-text="item.name"></h3>
@@ -308,7 +308,7 @@
       <i data-feather="x"></i>
     </a>
     <div class="modal-content">
-      <img :src="`image/${item.Image}`" :alt="item.name" />
+      <img :src="`Image/${item.Image}`" :alt="item.name" />
       <div class="product-content">
         <h3 x-text="item.name"></h3>
         <p>

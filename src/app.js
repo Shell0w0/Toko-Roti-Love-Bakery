@@ -173,3 +173,7 @@ const rupiah = (number) => {
     minimumFractionDigits: 0,
   }).format(number);
 };
+
+
+// tolong buatkan saya search bar yang mencari data berdasarkan keyworn=d nama produk sesuai yang ada di menu (html) 
+//buatkan cssnya  atau stylenya sama dengan tema website
