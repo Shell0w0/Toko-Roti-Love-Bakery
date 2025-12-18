@@ -104,34 +104,49 @@ document.addEventListener('alpine:init', () => {
 });
 
 
-// Form Validation
+// ===============================
+// FORM VALIDATION (EMAIL STRICT)
+// ===============================
 const checkoutButton = document.querySelector('.checkout-button');
 checkoutButton.disabled = true;
 
 const form = document.querySelector('#checkoutForm');
 
-form.addEventListener('keyup', function() {
-    let allFilled = true;
-    
-    // Hanya validasi input yang visible dan required
-    const nameInput = form.querySelector('#name');
-    const emailInput = form.querySelector('#email');
-    const phoneInput = form.querySelector('#phone');
-    
-    if (nameInput.value.trim() === '' || 
-        emailInput.value.trim() === '' || 
-        phoneInput.value.trim() === '') {
-        allFilled = false;
-    }
-    
-    // Enable/disable button
-    if (allFilled) {
-        checkoutButton.disabled = false;
-        checkoutButton.classList.remove('disabled');
-    } else {
-        checkoutButton.disabled = true;
-        checkoutButton.classList.add('disabled');
-    }
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+form.addEventListener('input', function () {
+  let isValid = true;
+
+  const nameInput = form.querySelector('#name');
+  const emailInput = form.querySelector('#email');
+  const phoneInput = form.querySelector('#phone');
+
+  // Nama
+  if (nameInput.value.trim() === '') {
+    isValid = false;
+  }
+
+  // Email (VALIDASI KETAT)
+  if (
+    emailInput.value.trim() === '' ||
+    !emailRegex.test(emailInput.value.trim())
+  ) {
+    isValid = false;
+    emailInput.classList.add('error');
+  } else {
+    emailInput.classList.remove('error');
+  }
+
+  // No HP (minimal 10 digit angka)
+  if (!/^\d{10,15}$/.test(phoneInput.value.trim())) {
+    isValid = false;
+    phoneInput.classList.add('error');
+  } else {
+    phoneInput.classList.remove('error');
+  }
+
+  checkoutButton.disabled = !isValid;
+  checkoutButton.classList.toggle('disabled', !isValid);
 });
 
 // Kirim data ketika tombol checkout diklik
@@ -174,6 +189,21 @@ const rupiah = (number) => {
   }).format(number);
 };
 
+// ===============================
+// MINI GAME BUTTON (SAFE)
+// ===============================
+document.addEventListener('DOMContentLoaded', function () {
+  const gameBtn = document.getElementById('btnMainGame');
 
-// tolong buatkan saya search bar yang mencari data berdasarkan keyworn=d nama produk sesuai yang ada di menu (html) 
-//buatkan cssnya  atau stylenya sama dengan tema website
+  if (!gameBtn) return; // safety check
+
+  gameBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    window.open(
+      'https://scratch.mit.edu/projects/1256161829',
+      '_blank'
+    );
+  });
+});

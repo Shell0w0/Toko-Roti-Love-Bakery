@@ -331,7 +331,7 @@ body {
 .menu,
 .products,
 .contact {
-  padding: 8rem 7% 1.4rem;
+  padding: 6rem 7% 1.4rem;
 }
 
 .about h2,
@@ -898,4 +898,137 @@ footer .credit a {
   .modal-content .product-content h3 {
     font-size: 1.5rem;
   }
+}
+
+/* ============================================
+   SEARCH HIGHLIGHT EFFECT
+   ============================================ */
+.menu-card,
+.product-card {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.menu-card:hover,
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+.product-card {
+  position: relative;
+}
+
+.product-content {
+  position: relative;
+  z-index: 2;
+}
+
+.product-price span {
+  position: relative;
+  z-index: 3;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.highlight {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 115, 154, 0.7);
+  border: 3px solid #ff739a;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menu-card {
+  padding-top: 35px;
+}
+
+/* hookup khusus Mini Games saja */
+section#games {
+  background: #000;
+  padding: 6rem 7% 2.5rem; /* top | left-right | bottom */
+  text-align: center;
+}
+
+/* judul */
+section#games > h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+section#games > h2 span {
+  color: #ff739a;
+}
+
+/* deskripsi section */
+section#games > p {
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  color: #aaa;
+  line-height: 1.8;
+}
+
+/* wrapper game */
+section#games .row {
+  display: grid;
+  justify-items: center;
+}
+
+/* GAME CARD */
+section#games .game-card {
+  background: #0d0d0d;
+  border: 2px solid #ff739a;
+  border-radius: 15px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 0 10px rgba(255, 115, 154, 0.35);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 420px;
+  width: 100%;
+  min-height: 420px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section#games .game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 35px rgba(255, 115, 154, 0.6);
+}
+
+/* isi card */
+section#games .game-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+section#games .game-card p {
+  font-size: 1.3rem;
+  color: #bbb;
+  margin-bottom: 2rem;
+}
+
+/* BUTTON */
+section#games .game-button {
+  display: inline-block;
+  padding: 0.8rem 2.2rem;
+  border-radius: 30px;
+  background: #ff739a;
+  color: #000;
+  font-weight: 600;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+section#games .game-button:hover {
+  background: #ff4f85;
+  color: #fff;
 }
